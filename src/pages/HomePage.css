@@ -1,0 +1,31 @@
+/* src/pages/HomePage.css */
+.home-page {
+    text-align: center;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .logo {
+    height: 50px;
+  }
+  
+  nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .welcome-section {
+    background-image: url('/background.jpg');
+    background-size: cover;
+    color: #fff;
+    padding: 50px 20px;
+  }
+  
