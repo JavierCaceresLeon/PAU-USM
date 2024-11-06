@@ -31,3 +31,7 @@ En este proyecto, se identificaron los siguiente tipos de usuarios clave:
 * **Función clave**: Interfaz intuitiva durante la postulación.
 
 Para probar el funcionamiento, se dará como tarea "Postular a MAT021, revisar el estado de la postulación y eliminar la postulación".
+
+## Logro de la empresa
+
+La mejora en la interfaz gráfica de la plataforma hará que el proceso sea más eficiente y rápido para los estudiantes. Estas cualidades resultan atractivas y están orientadas a incentivar un aumento en la oferta de ayudantes, generando una mayor cantidad de opciones tempranas para los departamentos, lo que les permite organizarse antes de que inicie el año académico.
