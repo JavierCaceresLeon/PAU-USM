@@ -29,3 +29,5 @@ En este proyecto, se identificaron los siguiente tipos de usuarios clave:
 * **Comportamientos y metas**: Requiere más orientación y una interfaz intuitiva para sentirse seguro durante el proceso de postulación.
 * **Meta de usuario**: Sentirse confiado al postular sin cometer errores.
 * **Función clave**: Interfaz intuitiva durante la postulación.
+
+Para probar el funcionamiento, se dará como tarea "Postular a MAT021, y luego revisar el estado de la postulación".
