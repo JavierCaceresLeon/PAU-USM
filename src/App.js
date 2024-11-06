@@ -6,8 +6,10 @@ import Resultados from './pages/Resultados';
 import MisAyudantias from './pages/MisAyudantias';
 import Contacto from './pages/Contacto';
 
+
 function App() {
     return (
+
         <Router>
             <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -17,6 +19,7 @@ function App() {
                 <Route path='/contacto' element={<Contacto/>}/>
             </Routes>
         </Router>
+
     );
 }
 

@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
+import './Postular.css';
+import Swal from 'sweetalert2';
+
 
 const courses = [
-    { code: 'MAT021', name: 'Matemática I' ,type: 'docencia'},
-    { code: 'MAT022', name: 'Matemática II' ,type: 'docencia'},
-    { code: 'INF239', name: 'Base de Datos' ,type: 'docencia'},
-    { code: 'INF236', name: 'Análisis y Diseño de Software' ,type: 'docencia'},
-    { code: 'MAT023', name: 'Matemática III' ,type: 'docencia'},
-    { code: 'INF225', name: 'Ingeniería de Software' ,type: 'docencia'},
-    {code:'B215' ,name:'Administracion sala b215',type:'administrativa'}
+    { code: 'MAT021', name: 'Matemática I', schedule: 'Bloque 1-2', parallel: '1', professor: 'Juan', type: 'docencia', depto: 'matemática' },
+    { code: 'MAT022', name: 'Matemática II', schedule: 'Bloque 3-4', parallel: '1', professor: 'María', type: 'docencia', depto: 'matemática' },
+    { code: 'MAT023', name: 'Álgebra Lineal', schedule: 'Bloque 5-6', parallel: '1', professor: 'Luis', type: 'docencia', depto: 'matemática' },
+    { code: 'MAT024', name: 'Cálculo Multivariable', schedule: 'Bloque 7-8', parallel: '1', professor: 'Ana', type: 'docencia', depto: 'matemática' },
+    { code: 'FIS101', name: 'Física General', schedule: 'Bloque 1-2', parallel: '1', professor: 'Carlos', type: 'docencia', depto: 'física' },
+    { code: 'FIS102', name: 'Electromagnetismo', schedule: 'Bloque 3-4', parallel: '1', professor: 'Elena', type: 'docencia', depto: 'física' },
+    { code: 'CS101', name: 'Introducción a la Programación', schedule: 'Bloque 5-6', parallel: '1', professor: 'Diego', type: 'docencia', depto: 'computación' },
+    { code: 'CS102', name: 'Estructuras de Datos', schedule: 'Bloque 7-8', parallel: '1', professor: 'Laura', type: 'docencia', depto: 'computación' },
+    { code: 'CS103', name: 'Sistemas Operativos', schedule: 'Bloque 1-2', parallel: '1', professor: 'Andrés', type: 'docencia', depto: 'computación' },
+    { code: 'HIS101', name: 'Historia Universal', schedule: 'Bloque 3-4', parallel: '1', professor: 'Roberto', type: 'docencia', depto: 'historia' },
+    { code: 'QUI101', name: 'Química General', schedule: 'Bloque 5-6', parallel: '1', professor: 'Patricia', type: 'docencia', depto: 'química' },
+    { code: 'QUI102', name: 'Química Orgánica', schedule: 'Bloque 7-8', parallel: '1', professor: 'Miguel', type: 'docencia', depto: 'química' },
+    { code: 'ADM001', name: 'Gestión Financiera', schedule: 'Bloque 1-2', parallel: '1', professor: 'Claudia', type: 'administrativa', depto: 'finanzas' },
+    { code: 'ADM002', name: 'Recursos Humanos', schedule: 'Bloque 3-4', parallel: '1', professor: 'Fernando', type: 'administrativa', depto: 'administración' },
+    { code: 'ADM003', name: 'Planificación Estratégica', schedule: 'Bloque 5-6', parallel: '1', professor: 'Gloria', type: 'administrativa', depto: 'planificación' },
+    { code: 'INV101', name: 'Inteligencia Artificial Aplicada', schedule: 'Bloque 7-8', parallel: '1', professor: 'Marcos', type: 'investigacion', depto: 'computación' },
+    { code: 'INV102', name: 'Energías Renovables', schedule: 'Bloque 1-2', parallel: '1', professor: 'Valeria', type: 'investigacion', depto: 'ingeniería' },
+    { code: 'INV103', name: 'Bioquímica Avanzada', schedule: 'Bloque 3-4', parallel: '1', professor: 'Sofía', type: 'investigacion', depto: 'biología' }
 ];
 
 const Postular = () => {
@@ -29,19 +43,41 @@ const Postular = () => {
     };
 
     const applyFilters = (type, filter) => {
-        const filtered = courses.filter(course => 
+        const filtered = courses.filter(course =>
             (type === '' || course.type === type) &&
             (course.name.toLowerCase().includes(filter.toLowerCase()) ||
-            course.code.toLowerCase().includes(filter.toLowerCase()))
+                course.code.toLowerCase().includes(filter.toLowerCase()))
         );
         setFilteredCourses(filtered);
     };
 
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Aquí puedes manejar el envío del formulario
-        console.log('Tipo seleccionado:', selectedType);
-        console.log('Cursos filtrados:', filteredCourses);
+        Swal.fire({
+            title: 'Confirmar Postulación',
+            html: `
+            <p>Tipo de Ayudantía: ${selectedType}</p>
+            <p>Curso Seleccionado: ${selectedCourse.code}</p>
+            `,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const existingPostulaciones = JSON.parse(localStorage.getItem('postulaciones')) || [];
+                existingPostulaciones.push(selectedCourse);
+                localStorage.setItem('postulaciones', JSON.stringify(existingPostulaciones));
+                console.log('Postulación guardada');
+                Swal.fire('¡Postulación Confirmada!', '', 'success');
+
+
+            } else {
+                console.log('Postulación cancelada');
+                Swal.fire('Postulación Cancelada', '', 'error');
+            }
+        });
     };
 
     return (
@@ -108,8 +144,8 @@ const Postular = () => {
                                                     type="radio"
                                                     name="selectedCourse"
                                                     value={course.code}
-                                                    checked={selectedCourse === course.code}
-                                                    onChange={(e) => setSelectedCourse(e.target.value)}
+                                                    checked={selectedCourse.code === course.code}
+                                                    onChange={() => setSelectedCourse(course)}
                                                     className="form-radio"
                                                 />
                                             </td>

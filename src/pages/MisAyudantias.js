@@ -1,13 +1,19 @@
 // src/pages/MisAyudantias.js
 import React, { useState } from 'react';
 import Header from '../components/Header';
+import { useEffect } from 'react';
 
 const MisAyudantias = () => {
-  const [courses] = useState([
-    { code: 'ELO320', name: 'Estructura de datos y algoritmos', schedule: 'Bloque 5-6', parallel: '1', professor: 'Profesor Ejemplo' },
-    { code: 'MAT023', name: 'Matemática III', schedule: 'Bloque 3-4', parallel: '2', professor: 'Profesor Ejemplo' },
-    { code: 'INF322', name: 'Diseño interfaces usuarias', schedule: 'Bloque 1-2', parallel: '3', professor: 'Profesor Ejemplo' },
+
+  const [courses, setCourses] = useState([
+
   ]);
+  useEffect(() => {
+    const storedCourses = localStorage.getItem('postulaciones');
+    if (storedCourses) {
+      setCourses(JSON.parse(storedCourses));
+    }
+  }, []);
 
   const [selectedCourse, setSelectedCourse] = useState(null);
 
