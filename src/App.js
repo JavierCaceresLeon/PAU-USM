@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import Postular from './pages/Postular';
 import Resultados from './pages/Resultados';
 import MisAyudantias from './pages/MisAyudantias';
+import Contacto from './pages/Contacto';
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Route path="/postular" element={<Postular />} />
                 <Route path="/resultados" element={<Resultados />} />
                 <Route path="/ayudantias" element={<MisAyudantias />} />
+                <Route path='/contacto' element={<Contacto/>}/>
             </Routes>
         </Router>
     );

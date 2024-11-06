@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Header from '../components/Header';
+import './Resultados.css';
 
 const sharedClasses = {
     primaryColor: 'text-primary',
@@ -51,8 +53,8 @@ const Table = () => {
                             <span className={`${course.statusColor} font-semibold`}>{course.status}</span>
                         </td>
                         <td className="py-2 px-4">
-                            <button className={`${sharedClasses.destructiveColor} ${sharedClasses.hoverTransition}`}>
-                                <img aria-hidden="true" alt="trash-icon" src="https://openui.fly.dev/openui/24x24.svg?text=🗑️" />
+                            <button className={`${sharedClasses.destructiveColor} ${sharedClasses.hoverTransition} ButtonDelete`} onClick={()=>console.log('asd')}>
+                            <svg height={20} width={20} fill='red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
                             </button>
                         </td>
                     </tr>
@@ -64,17 +66,12 @@ const Table = () => {
 
 const Resultados = () => {
     return (
+        <>
+        <Header/>
         <div className="p-6 bg-background">
-            <h1 className={`${sharedClasses.primaryColor} font-bold text-5xl ${sharedClasses.primaryColorForeground}`}>PAU USM</h1>
-            <nav className="my-4">
-                <a href="#" className={`text-lg ${sharedClasses.mutedColor} ${sharedClasses.hoverTransition}`}>Mis Ayudantías</a>
-                <a href="#" className={`text-lg ${sharedClasses.mutedColor} ${sharedClasses.hoverTransition} mx-4`}>Postular</a>
-                <a href="#" className={`text-lg ${sharedClasses.primaryColor} font-semibold`}>Resultados</a>
-                <a href="#" className={`text-lg ${sharedClasses.mutedColor} ${sharedClasses.hoverTransition} mx-4`}>Contacto</a>
-            </nav>
-            <button className="border border-primary text-primary px-6 py-3 rounded-lg hover:bg-primary hover:text-primary-foreground transition duration-300">Resultados</button>
             <Table />
         </div>
+        </>
     );
 };
 

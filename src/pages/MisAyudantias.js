@@ -1,8 +1,11 @@
 // src/pages/MisAyudantias.js
 import React from 'react';
+import Header from '../components/Header';
 
 const MisAyudantias = () => {
   return (
+    <>
+    <Header/>
     <div className="mis-ayudantias-page">
       <h2>Mis Ayudantías</h2>
       <table>
@@ -27,6 +30,7 @@ const MisAyudantias = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

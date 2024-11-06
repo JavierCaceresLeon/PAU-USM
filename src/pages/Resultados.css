@@ -1,0 +1,12 @@
+.ButtonDelete{
+    background: none;
+    border: none;
+  }
+
+.ButtonDelete:hover{
+    cursor: pointer;
+  }
+
+.ButtonDelete:active{
+    cursor: default;
+}

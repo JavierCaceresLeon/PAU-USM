@@ -1,78 +1,128 @@
 import React, { useState } from 'react';
-
-const buttonClasses = 'p-2 rounded-lg bg-zinc-300 hover:bg-blue-500 text-zinc-800 hover:text-white transition duration-200';
-const containerClasses = 'container mx-auto p-4';
-const headerClasses = 'flex justify-between items-center mb-4';
-const inputClasses = 'border rounded-lg p-2 flex-grow';
-const searchButtonClasses = 'bg-blue-500 text-white p-2 rounded-lg ml-2 hover:bg-blue-600 transition duration-200';
-const courseCardClasses = 'p-4 border rounded-lg bg-zinc-200 shadow-md hover:shadow-lg transition duration-200';
+import Header from '../components/Header';
 
 const courses = [
-    { code: 'MAT021', name: 'Matemática I' },
-    { code: 'MAT022', name: 'Matemática II' },
-    { code: 'INF239', name: 'Base de Datos' },
-    { code: 'INF236', name: 'Análisis y Diseño de Software' },
-    { code: 'MAT023', name: 'Matemática III' },
-    { code: 'INF225', name: 'Ingeniería de Software' },
+    { code: 'MAT021', name: 'Matemática I' ,type: 'docencia'},
+    { code: 'MAT022', name: 'Matemática II' ,type: 'docencia'},
+    { code: 'INF239', name: 'Base de Datos' ,type: 'docencia'},
+    { code: 'INF236', name: 'Análisis y Diseño de Software' ,type: 'docencia'},
+    { code: 'MAT023', name: 'Matemática III' ,type: 'docencia'},
+    { code: 'INF225', name: 'Ingeniería de Software' ,type: 'docencia'},
+    {code:'B215' ,name:'Administracion sala b215',type:'administrativa'}
 ];
 
 const Postular = () => {
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [selectedCampus, setSelectedCampus] = useState('');
+    const [selectedType, setSelectedType] = useState('');
+    const [filter, setFilter] = useState('');
+    const [filteredCourses, setFilteredCourses] = useState(courses);
+    const [selectedCourse, setSelectedCourse] = useState('');
 
-    const handleCategorySelect = (category) => {
-        setSelectedCategory(category);
+    const handleTypeChange = (type) => {
+        setSelectedType(type);
+        applyFilters(type, filter);
+    };
+
+    const handleFilterChange = (event) => {
+        const newFilter = event.target.value;
+        setFilter(newFilter);
+        applyFilters(selectedType, newFilter);
+    };
+
+    const applyFilters = (type, filter) => {
+        const filtered = courses.filter(course => 
+            (type === '' || course.type === type) &&
+            (course.name.toLowerCase().includes(filter.toLowerCase()) ||
+            course.code.toLowerCase().includes(filter.toLowerCase()))
+        );
+        setFilteredCourses(filtered);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Aquí puedes manejar el envío del formulario
+        console.log('Tipo seleccionado:', selectedType);
+        console.log('Cursos filtrados:', filteredCourses);
     };
 
     return (
-        <div className={containerClasses}>
-            <header className={headerClasses}>
-                <img src="/path/to/logo.png" alt="PAU USM Logo" className="h-12" />
-                <div className="flex items-center">
-                    <span className="text-lg font-semibold">Mis Ayudantías</span>
-                    <button className="ml-4 p-2 rounded-full bg-zinc-200 hover:bg-zinc-300 transition duration-200">
-                        <img src="/path/to/user-icon.png" alt="User Icon" className="h-8 w-8" />
-                    </button>
-                </div>
-            </header>
-            <nav className="mb-4">
-                <span className="text-lg font-semibold">Postular</span>
-                <div className="flex space-x-2 mt-2">
-                    {['docente', 'administrativa', 'investigacion'].map((category) => (
-                        <button
-                            key={category}
-                            id={category}
-                            className={`${buttonClasses} ${selectedCategory === category ? 'bg-blue-500 text-white' : ''}`}
-                            onClick={() => handleCategorySelect(category)}
-                        >
-                            {category.charAt(0).toUpperCase() + category.slice(1)}
-                        </button>
-                    ))}
-                </div>
-            </nav>
-            <div className="flex items-center mb-4">
-                <select
-                    className="border rounded-lg p-2 mr-2 bg-white"
-                    value={selectedCampus}
-                    onChange={(e) => setSelectedCampus(e.target.value)}
-                >
-                    <option value="">Seleccione Campus/Sede</option>
-                    <option value="campus1">Campus 1</option>
-                    <option value="campus2">Campus 2</option>
-                </select>
-                <input type="text" placeholder="Escribe cargo o palabra clave" className={inputClasses} />
-                <button className={searchButtonClasses}>Búsqueda Avanzada</button>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {courses.map(course => (
-                    <div key={course.code} className={courseCardClasses}>
-                        <img src="https://openui.fly.dev/openui/24x24.svg?text=📚" alt="course-image" />
-                        <h3 className="font-semibold">{course.code}</h3>
-                        <p>{course.name}</p>
+        <>
+            <Header />
+            <div className="postular-container">
+                <h1>Postulación a Ayudantías</h1>
+                <form onSubmit={handleSubmit} className="postular-form">
+                    <div className="form-group">
+                        <label htmlFor="type">Tipo de Ayudantía:</label>
+                        <div className="tabs">
+                            <button
+                                type="button"
+                                className={`tab-button ${selectedType === 'docencia' ? 'active' : ''}`}
+                                onClick={() => handleTypeChange('docencia')}
+                            >
+                                Docencia
+                            </button>
+                            <button
+                                type="button"
+                                className={`tab-button ${selectedType === 'investigacion' ? 'active' : ''}`}
+                                onClick={() => handleTypeChange('investigacion')}
+                            >
+                                Investigación
+                            </button>
+                            <button
+                                type="button"
+                                className={`tab-button ${selectedType === 'administrativa' ? 'active' : ''}`}
+                                onClick={() => handleTypeChange('administrativa')}
+                            >
+                                Administrativa
+                            </button>
+                        </div>
                     </div>
-                ))}
+                    <div className="form-group">
+                        <label htmlFor="filter">Filtrar Cursos:</label>
+                        <input
+                            type="text"
+                            id="filter"
+                            value={filter}
+                            onChange={handleFilterChange}
+                            placeholder="Buscar por nombre o código"
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="courses-list">
+                        <div className="form-group">
+                            <label htmlFor="course">Seleccionar Curso:</label>
+                            <table className="courses-table">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filteredCourses.map(course => (
+                                        <tr key={course.code}>
+                                            <td>{course.code}</td>
+                                            <td>{course.name}</td>
+                                            <td>
+                                                <input
+                                                    type="radio"
+                                                    name="selectedCourse"
+                                                    value={course.code}
+                                                    checked={selectedCourse === course.code}
+                                                    onChange={(e) => setSelectedCourse(e.target.value)}
+                                                    className="form-radio"
+                                                />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="submit" className="submit-button">Enviar Postulación</button>
+                </form>
             </div>
-        </div>
+        </>
     );
 };
 
