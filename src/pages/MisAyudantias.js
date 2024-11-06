@@ -1,13 +1,31 @@
 // src/pages/MisAyudantias.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import { useEffect } from 'react';
+// Importamos el archivo CSS
+import './MisAyudantias.css';
 
 const MisAyudantias = () => {
-
   const [courses, setCourses] = useState([
-
+    {
+      code: 'MAT021',
+      name: 'Álgebra Lineal',
+      schedule: 'Lunes y Miércoles 10:00 - 11:30',
+      parallel: '1',
+      professor: 'Aldo Cabrera',
+      // Añadí una propiedad 'image' con una URL de imagen
+      image: 'https://via.placeholder.com/300x200/008080/FFFFFF?text=MAT023',
+    },
+    {
+      code: 'ELO320',
+      name: 'Electrónica Digital',
+      schedule: 'Martes y Jueves 14:00 - 15:30',
+      parallel: '2',
+      professor: 'Ing. María González',
+      image: 'https://via.placeholder.com/300x200/800080/FFFFFF?text=ELO320',
+    },
+    // Añade más cursos de ejemplo si lo deseas
   ]);
+
   useEffect(() => {
     const storedCourses = localStorage.getItem('postulaciones');
     if (storedCourses) {
@@ -31,23 +49,28 @@ const MisAyudantias = () => {
       <div className="mis-ayudantias-page">
         <h2>Mis Ayudantías</h2>
         <div className="card-container">
-          {courses.map((course) => (
-            <div key={course.code} className="card" onClick={() => handleCardClick(course)}>
-              <div className="card-image">
-                <img src="https://via.placeholder.com/100" alt={`${course.code} icon`} />
+          {courses.length > 0 ? (
+            courses.map((course) => (
+              <div key={course.code} className="card" onClick={() => handleCardClick(course)}>
+                <div className="card-image">
+                  {/* Mostramos la imagen del curso */}
+                  <img src={course.image} alt={`${course.code} icon`} />
+                </div>
+                <div className="card-content">
+                  <h3>{course.code}</h3>
+                  <p>{course.name}</p>
+                </div>
               </div>
-              <div className="card-content">
-                <h3>{course.code}</h3>
-                <p>{course.name}</p>
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="no-courses-message">No tienes ayudantías asignadas.</p>
+          )}
         </div>
 
         {/* Modal */}
         {selectedCourse && (
-          <div className="modal-overlay">
-            <div className="modal-content">
+          <div className="modal-overlay" onClick={closeModal}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <h3>{selectedCourse.name} ({selectedCourse.code})</h3>
               <p><strong>Horario:</strong> {selectedCourse.schedule}</p>
               <p><strong>Paralelo designado:</strong> {selectedCourse.parallel}</p>
@@ -57,62 +80,6 @@ const MisAyudantias = () => {
           </div>
         )}
       </div>
-
-      {/* Estilos */}
-      <style jsx>{`
-        .card-container {
-          display: flex;
-          gap: 16px;
-          justify-content: center;
-        }
-        .card {
-          width: 150px;
-          background: #f9f9f9;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          cursor: pointer;
-          text-align: center;
-          transition: transform 0.2s;
-        }
-        .card:hover {
-          transform: scale(1.05);
-        }
-        .card-image {
-          background-color: #ddd;
-          padding: 16px;
-        }
-        .card-content {
-          padding: 8px;
-        }
-        .modal-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 1000;
-        }
-        .modal-content {
-          background: white;
-          padding: 20px;
-          border-radius: 8px;
-          width: 300px;
-          text-align: center;
-        }
-        button {
-          margin-top: 10px;
-          padding: 8px 16px;
-          background-color: #007ACC;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-      `}</style>
     </>
   );
 };

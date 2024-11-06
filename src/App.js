@@ -5,7 +5,7 @@ import Postular from './pages/Postular';
 import Resultados from './pages/Resultados';
 import MisAyudantias from './pages/MisAyudantias';
 import Contacto from './pages/Contacto';
-
+import UserProfile from './components/UserProfile';
 
 function App() {
     return (
@@ -17,6 +17,7 @@ function App() {
                 <Route path="/resultados" element={<Resultados />} />
                 <Route path="/ayudantias" element={<MisAyudantias />} />
                 <Route path='/contacto' element={<Contacto/>}/>
+                <Route path="/perfil" element={<UserProfile />} />
             </Routes>
         </Router>
 

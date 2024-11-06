@@ -1,12 +1,272 @@
 .ButtonDelete{
     background: none;
     border: none;
-  }
+}
 
 .ButtonDelete:hover{
     cursor: pointer;
-  }
+}
 
 .ButtonDelete:active{
     cursor: default;
 }
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    animation: slideIn 0.3s ease-out;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    background: transparent;
+    border-radius: 1rem;
+    outline: none;
+    padding: 0;
+    max-width: 500px;
+    width: 90%;
+    margin: 2rem auto;
+}
+
+@media (max-width: 640px) {
+    .modal-content {
+        width: 95%;
+        margin: 1rem;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Efecto de hover suave para los botones */
+button {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Simplificar checkbox */
+input[type="checkbox"] {
+    cursor: pointer;
+    border-radius: 50%;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid #cbd5e0;
+    background-color: white;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #7c3aed;
+    border-color: #7c3aed;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '✓';
+    color: white;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos base de la tabla */
+.table-container {
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 2rem;
+}
+
+/* Mejoras en la tabla */
+.MuiTableContainer-root {
+    margin: 0 auto;
+    max-width: 1200px;
+    border-radius: 1rem !important;
+}
+
+.MuiTable-root {
+    border-collapse: separate !important;
+    border-spacing: 0;
+}
+
+/* Efectos de hover mejorados */
+tr:hover td {
+    background-color: rgba(139, 92, 246, 0.05);
+}
+
+/* Animaciones suaves */
+.fade-enter {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+}
+
+/* Mejoras en efectos visuales */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Efectos de iluminación */
+.glow {
+    position: relative;
+    overflow: hidden;
+}
+
+.glow::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.3) 0%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.glow:hover::before {
+    opacity: 1;
+}
+
+/* Animaciones mejoradas */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Efectos de hover para la tabla */
+.hover-trigger {
+    position: relative;
+    overflow: hidden;
+}
+
+.hover-trigger::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, currentColor, transparent);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.hover-trigger:hover::after {
+    transform: translateX(100%);
+}
+
+/* Mejoras en el checkbox */
+.custom-checkbox {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.custom-checkbox:checked {
+    transform: rotateY(180deg);
+}
+
+/* Efecto de profundidad para elementos */
+.depth-effect {
+    transform: perspective(1000px) rotateX(0deg);
+    transition: transform 0.3s ease;
+}
+
+.depth-effect:hover {
+    transform: perspective(1000px) rotateX(5deg);
+}
+
+/* Efectos de partículas en hover */
+.particle-effect {
+    position: relative;
+}
+
+.particle-effect::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, currentColor 0%, transparent 60%);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.particle-effect:hover::before {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.1;
+}
+
+/* Eliminar animaciones y efectos complejos, mantener solo transiciones suaves */
+.transition-simple {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Mantener solo las transiciones necesarias */
+.hover-simple:hover {
+    background-color: rgba(139, 92, 246, 0.05);
+}
+
+/* Eliminar el resto de las animaciones y efectos */

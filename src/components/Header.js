@@ -1,4 +1,5 @@
 import React from 'react';
+import './Header.css'; // Importar el archivo CSS
 const NAV_LINKS = [
     { href: '/postular', text: 'Postular' },
     { href: '/resultados', text: 'Resultados' },
@@ -7,24 +8,24 @@ const NAV_LINKS = [
 ];
 const Header = () => {
     return (
-        <header style={{ backgroundColor: '#f0f0f0', padding: '24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <img src="/Logo_UTFSM.png" alt="Logo USM" style={{ height: '40px' }} />
-                <span style={{ fontSize: '24px', fontWeight: 'bold', color: '#007ACC' }}>PAU USM</span>
-            </a>
-            <nav style={{ display: 'flex', gap: '16px' }}>
-                {NAV_LINKS.map((link, index) => (
-                    <a key={index} href={link.href} style={{ color: '#888', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = '#007ACC'} onMouseLeave={(e) => e.target.style.color = '#888'}>
-                        {link.text}
-                    </a>
-                ))}
-            </nav>
-            <button style={{ backgroundColor: '#4CAF50', color: 'white', padding: '8px', borderRadius: '50%', transition: '0.3s' }} onMouseEnter={(e) => e.target.style.backgroundColor = '#45a049'} onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}>
-                <img src="https://openui.fly.dev/openui/24x24.svg?text=👤" alt="User Icon" style={{ height: '32px', width: '32px' }} />
-            </button>
-        </div>
-    </header>
+        <header className="header">
+            <div className="header-container">
+                <a href="/" className="logo-link">
+                    <img src="/Logo_UTFSM.png" alt="Logo USM" className="logo-image" />
+                    <span className="logo-text">PAU USM</span>
+                </a>
+                <nav className="nav-links">
+                    {NAV_LINKS.map((link, index) => (
+                        <a key={index} href={link.href} className="nav-link">
+                            {link.text}
+                        </a>
+                    ))}
+                </nav>
+                <a href="/perfil" className="user-section">
+                    <img src="/user-photo.png" alt="User Icon" className="user-icon" />
+                </a>
+            </div>
+        </header>
     );
 };
 

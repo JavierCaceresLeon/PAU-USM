@@ -9,7 +9,7 @@ const HomePage = () => {
             <div style={{ marginTop: '30px', textAlign: 'center', position: 'relative', overflow: 'hidden', height: '450px' }}> {/* */}
                 <img 
                     src={imgBanner} 
-                    alt="Descripción de la imagen"
+                    alt="Banner"
                     style={{ 
                         maxWidth: '100%', 
                         height: 'auto', 
