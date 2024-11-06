@@ -30,4 +30,4 @@ En este proyecto, se identificaron los siguiente tipos de usuarios clave:
 * **Meta de usuario**: Sentirse confiado al postular sin cometer errores.
 * **Función clave**: Interfaz intuitiva durante la postulación.
 
-Para probar el funcionamiento, se dará como tarea "Postular a MAT021, y luego revisar el estado de la postulación".
+Para probar el funcionamiento, se dará como tarea "Postular a MAT021, revisar el estado de la postulación y eliminar la postulación".
