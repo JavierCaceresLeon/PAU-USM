@@ -5,31 +5,32 @@ import Swal from 'sweetalert2';
 
 
 const courses = [
-    { code: 'MAT021', name: 'Matemática I', schedule: 'Bloque 1-2', parallel: '1', professor: 'Juan', type: 'docencia', depto: 'matemática' },
-    { code: 'MAT022', name: 'Matemática II', schedule: 'Bloque 3-4', parallel: '1', professor: 'María', type: 'docencia', depto: 'matemática' },
-    { code: 'MAT023', name: 'Álgebra Lineal', schedule: 'Bloque 5-6', parallel: '1', professor: 'Luis', type: 'docencia', depto: 'matemática' },
-    { code: 'MAT024', name: 'Cálculo Multivariable', schedule: 'Bloque 7-8', parallel: '1', professor: 'Ana', type: 'docencia', depto: 'matemática' },
-    { code: 'FIS101', name: 'Física General', schedule: 'Bloque 1-2', parallel: '1', professor: 'Carlos', type: 'docencia', depto: 'física' },
-    { code: 'FIS102', name: 'Electromagnetismo', schedule: 'Bloque 3-4', parallel: '1', professor: 'Elena', type: 'docencia', depto: 'física' },
-    { code: 'CS101', name: 'Introducción a la Programación', schedule: 'Bloque 5-6', parallel: '1', professor: 'Diego', type: 'docencia', depto: 'computación' },
-    { code: 'CS102', name: 'Estructuras de Datos', schedule: 'Bloque 7-8', parallel: '1', professor: 'Laura', type: 'docencia', depto: 'computación' },
-    { code: 'CS103', name: 'Sistemas Operativos', schedule: 'Bloque 1-2', parallel: '1', professor: 'Andrés', type: 'docencia', depto: 'computación' },
-    { code: 'HIS101', name: 'Historia Universal', schedule: 'Bloque 3-4', parallel: '1', professor: 'Roberto', type: 'docencia', depto: 'historia' },
-    { code: 'QUI101', name: 'Química General', schedule: 'Bloque 5-6', parallel: '1', professor: 'Patricia', type: 'docencia', depto: 'química' },
-    { code: 'QUI102', name: 'Química Orgánica', schedule: 'Bloque 7-8', parallel: '1', professor: 'Miguel', type: 'docencia', depto: 'química' },
-    { code: 'ADM001', name: 'Gestión Financiera', schedule: 'Bloque 1-2', parallel: '1', professor: 'Claudia', type: 'administrativa', depto: 'finanzas' },
-    { code: 'ADM002', name: 'Recursos Humanos', schedule: 'Bloque 3-4', parallel: '1', professor: 'Fernando', type: 'administrativa', depto: 'administración' },
-    { code: 'ADM003', name: 'Planificación Estratégica', schedule: 'Bloque 5-6', parallel: '1', professor: 'Gloria', type: 'administrativa', depto: 'planificación' },
-    { code: 'INV101', name: 'Inteligencia Artificial Aplicada', schedule: 'Bloque 7-8', parallel: '1', professor: 'Marcos', type: 'investigacion', depto: 'computación' },
-    { code: 'INV102', name: 'Energías Renovables', schedule: 'Bloque 1-2', parallel: '1', professor: 'Valeria', type: 'investigacion', depto: 'ingeniería' },
-    { code: 'INV103', name: 'Bioquímica Avanzada', schedule: 'Bloque 3-4', parallel: '1', professor: 'Sofía', type: 'investigacion', depto: 'biología' }
+    { code: 'MAT021',         name: 'Álgebra Lineal', schedule: 'Bloque 1-2', parallel: '1',  professor: 'Aldo Cabrera', type: 'docencia', depto: 'matemática', status: 'disponible' },
+    { code: 'ELO320', name: 'Electrónica Digital', schedule: 'Bloque 9-10', parallel: '2', professor: 'Ing. María González', type: 'docencia', depto: 'electrónica', status: 'disponible' },
+    { code: 'MAT022', name: 'Matemática II', schedule: 'Bloque 3-4', parallel: '1', professor: 'María', type: 'docencia', depto: 'matemática', status: 'disponible' },
+    { code: 'MAT023', name: 'Álgebra Lineal', schedule: 'Bloque 5-6', parallel: '1', professor: 'Luis', type: 'docencia', depto: 'matemática', status: 'disponible' },
+    { code: 'MAT024', name: 'Cálculo Multivariable', schedule: 'Bloque 7-8', parallel: '1', professor: 'Ana', type: 'docencia', depto: 'matemática', status: 'disponible' },
+    { code: 'FIS101', name: 'Física General', schedule: 'Bloque 1-2', parallel: '1', professor: 'Carlos', type: 'docencia', depto: 'física', status: 'disponible' },
+    { code: 'FIS102', name: 'Electromagnetismo', schedule: 'Bloque 3-4', parallel: '1', professor: 'Elena', type: 'docencia', depto: 'física', status: 'disponible' },
+    { code: 'CS101', name: 'Introducción a la Programación', schedule: 'Bloque 5-6', parallel: '1', professor: 'Diego', type: 'docencia', depto: 'computación', status: 'disponible' },
+    { code: 'CS102', name: 'Estructuras de Datos', schedule: 'Bloque 7-8', parallel: '1', professor: 'Laura', type: 'docencia', depto: 'computación', status: 'disponible' },
+    { code: 'CS103', name: 'Sistemas Operativos', schedule: 'Bloque 1-2', parallel: '1', professor: 'Andrés', type: 'docencia', depto: 'computación', status: 'disponible' },
+    { code: 'HIS101', name: 'Historia Universal', schedule: 'Bloque 3-4', parallel: '1', professor: 'Roberto', type: 'docencia', depto: 'historia', status: 'disponible' },
+    { code: 'QUI101', name: 'Química General', schedule: 'Bloque 5-6', parallel: '1', professor: 'Patricia', type: 'docencia', depto: 'química', status: 'disponible' },
+    { code: 'QUI102', name: 'Química Orgánica', schedule: 'Bloque 7-8', parallel: '1', professor: 'Miguel', type: 'docencia', depto: 'química', status: 'disponible' },
+    { code: 'ADM001', name: 'Gestión Financiera', schedule: 'Bloque 1-2', parallel: '1', professor: 'Claudia', type: 'administrativa', depto: 'finanzas', status: 'disponible' },
+    { code: 'ADM002', name: 'Recursos Humanos', schedule: 'Bloque 3-4', parallel: '1', professor: 'Fernando', type: 'administrativa', depto: 'administración', status: 'disponible' },
+    { code: 'ADM003', name: 'Planificación Estratégica', schedule: 'Bloque 5-6', parallel: '1', professor: 'Gloria', type: 'administrativa', depto: 'planificación', status: 'disponible' },
+    { code: 'INV101', name: 'Inteligencia Artificial Aplicada', schedule: 'Bloque 7-8', parallel: '1', professor: 'Marcos', type: 'investigacion', depto: 'computación', status: 'disponible' },
+    { code: 'INV102', name: 'Energías Renovables', schedule: 'Bloque 1-2', parallel: '1', professor: 'Valeria', type: 'investigacion', depto: 'ingeniería', status: 'disponible' },
+    { code: 'INV103', name: 'Bioquímica Avanzada', schedule: 'Bloque 3-4', parallel: '1', professor: 'Sofía', type: 'investigacion', depto: 'biología', status: 'disponible' }
 ];
 
 const Postular = () => {
     const [selectedType, setSelectedType] = useState('');
     const [filter, setFilter] = useState('');
     const [filteredCourses, setFilteredCourses] = useState([]);
-    const [selectedCourse, setSelectedCourse] = useState('');
+    const [selectedCourse, setSelectedCourse] = useState(null);
 
     const handleTypeChange = (type) => {
         setSelectedType(type);
@@ -59,7 +60,7 @@ const Postular = () => {
             title: 'Confirmar Postulación',
             html: `
             <p>Tipo de Ayudantía: ${selectedType}</p>
-            <p>Curso Seleccionado: ${selectedCourse.code}</p>
+            <p>Curso Seleccionado: ${selectedCourse ? selectedCourse.code : ''}</p>
             `,
             icon: 'warning',
             showCancelButton: true,
@@ -68,10 +69,13 @@ const Postular = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 const existingPostulaciones = JSON.parse(localStorage.getItem('postulaciones')) || [];
-                existingPostulaciones.push(selectedCourse);
+                const updatedCourse = { ...selectedCourse, status: 'Procesando' };
+                existingPostulaciones.push(updatedCourse);
                 localStorage.setItem('postulaciones', JSON.stringify(existingPostulaciones));
                 console.log('Postulación guardada');
-                Swal.fire('¡Postulación Confirmada!', '', 'success');
+                Swal.fire('¡Postulación Confirmada!', '', 'success').then(() => {
+                    window.location.href = '/resultados';
+                });
                 applyFilters(selectedType, filter);
             } else {
                 console.log('Postulación cancelada');
@@ -144,7 +148,7 @@ const Postular = () => {
                                                     type="radio"
                                                     name="selectedCourse"
                                                     value={course.code}
-                                                    checked={selectedCourse.code === course.code}
+                                                    checked={selectedCourse && selectedCourse.code === course.code}
                                                     onChange={() => setSelectedCourse(course)}
                                                     className="form-radio"
                                                 />
@@ -155,7 +159,7 @@ const Postular = () => {
                             </table>
                         </div>
                     </div>
-                    <button type="submit" className="submit-button">Enviar Postulación</button>
+                    <button type="submit" className="submit-button" disabled={!selectedCourse}>Enviar Postulación</button>
                 </form>
             </div>
         </>

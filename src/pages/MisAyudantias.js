@@ -6,24 +6,6 @@ import './MisAyudantias.css';
 
 const MisAyudantias = () => {
   const [courses, setCourses] = useState([
-    {
-      code: 'MAT021',
-      name: 'Álgebra Lineal',
-      schedule: 'Lunes y Miércoles 10:00 - 11:30',
-      parallel: '1',
-      professor: 'Aldo Cabrera',
-      // Añadí una propiedad 'image' con una URL de imagen
-      image: 'https://via.placeholder.com/300x200/008080/FFFFFF?text=MAT023',
-    },
-    {
-      code: 'ELO320',
-      name: 'Electrónica Digital',
-      schedule: 'Martes y Jueves 14:00 - 15:30',
-      parallel: '2',
-      professor: 'Ing. María González',
-      image: 'https://via.placeholder.com/300x200/800080/FFFFFF?text=ELO320',
-    },
-    // Añade más cursos de ejemplo si lo deseas
   ]);
 
   useEffect(() => {
@@ -50,7 +32,7 @@ const MisAyudantias = () => {
         <h2>Mis Ayudantías</h2>
         <div className="card-container">
           {courses.length > 0 ? (
-            courses.map((course) => (
+            courses.filter(course => course.status === 'Asignada').map((course) => (
               <div key={course.code} className="card" onClick={() => handleCardClick(course)}>
                 <div className="card-image">
                   {/* Mostramos la imagen del curso */}

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import './Resultados.css';
-import { FaCheckCircle, FaHourglassHalf, FaTrashAlt } from 'react-icons/fa';
+import { FaCheckCircle, FaHourglassHalf, FaTrashAlt, FaCheck } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Modal from 'react-modal';
+import Swal from 'sweetalert2';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TableContainer, Table as MUITable, Paper } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material';
@@ -26,15 +26,17 @@ const coursesData = [
     { code: 'MAT021', status: 'Procesando', statusColor: 'text-yellow-500' },
 ];
 
-Modal.setAppElement('#root'); // o '#app' dependiendo de tu elemento raíz
-
 const Table = () => {
     const [selectedCourses, setSelectedCourses] = useState([]);
     const [expandedRow, setExpandedRow] = useState(null);
-    const [courses, setCourses] = useState(coursesData);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [courseToDelete, setCourseToDelete] = useState(null);
-
+    const [courses, setCourses] = useState([]);
+    
+    useEffect(() => {
+        const storedCourses = localStorage.getItem('postulaciones');
+        if (storedCourses) {
+          setCourses(JSON.parse(storedCourses));
+        }
+      }, []);
     const tableTheme = createTheme({
         components: {
             MuiTableContainer: {
@@ -62,26 +64,51 @@ const Table = () => {
         setExpandedRow(expandedRow === code ? null : code);
     };
 
-    const openModal = (code) => {
-        setModalIsOpen(true);
-        setCourseToDelete(code);
+    const handleDelete = (code) => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: `¿Deseas eliminar la postulación a ${code}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setCourses(courses.filter((course) => course.code !== code));
+                localStorage.setItem('postulaciones', JSON.stringify(courses.filter((course) => course.code !== code)));
+                toast.success(`Postulación a ${code} eliminada.`);
+            }
+        });
     };
 
-    const closeModal = () => {
-        setModalIsOpen(false);
-        setCourseToDelete(null);
-    };
-
-    const handleDelete = () => {
-        setCourses(courses.filter((course) => course.code !== courseToDelete));
-        toast.success(`Postulación a ${courseToDelete} eliminada.`);
-        closeModal();
+    const handleAccept = (code) => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: `¿Deseas aceptar la postulación a ${code}?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const updatedCourses = courses.map((course) =>
+                    course.code === code ? { ...course, status: 'Asignada'} : course
+                );
+                setCourses(updatedCourses);
+                localStorage.setItem('postulaciones', JSON.stringify(updatedCourses));
+                toast.success(`Postulación a ${code} aceptada.`);
+            }
+        });
     };
 
     return (
         <ThemeProvider theme={tableTheme}>
             <div className="container mx-auto px-4 py-8 max-w-5xl space-y-6">
-                <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-6 rounded-xl shadow-lg mb-8">
+                <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-6 rounded-xl shadow-lg mb-8 border-black border-2">
                     <Typography variant="h4" className="text-white font-bold text-center mb-2">
                         Estado de Postulaciones
                     </Typography>
@@ -128,13 +155,13 @@ const Table = () => {
                                 {courses.map((course) => (
                                     <motion.tr
                                         key={course.code}
-                                        initial={{ opacity: 0 }}
+                                        initial={{ opacity: 0}}
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
                                         transition={{ duration: 0.2 }}
-                                        className="hover:bg-purple-50/50 transition-colors duration-200"
+                                        className="hover:bg-purple-50/50 transition-colors duration-200 border-black border-solid border-1"
                                     >
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        <td className="px-6 py-4 whitespace-nowrap border-black border-solid border-1">
                                             <div className="flex items-center space-x-4">
                                                 <input
                                                     type="checkbox"
@@ -147,7 +174,7 @@ const Table = () => {
                                                 </span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        <td className="px-6 py-4 whitespace-nowrap border-black border-solid border-1">
                                             <div className="flex items-center space-x-2">
                                                 {course.status === 'Asignada' ? (
                                                     <div className="flex items-center space-x-2">
@@ -166,10 +193,20 @@ const Table = () => {
                                                 )}
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-right">
+                                        <td className="px-6 py-4 whitespace-nowrap text-right border-black border-solid border-1" style={{padding:'1rem'}}>
+                                            {course.status === 'Procesando' && (
+                                                <button
+                                                    className="p-2 rounded-full bg-green-100 hover:bg-green-200 transition-colors duration-200 mr-2"
+                                                    onClick={() => handleAccept(course.code)}
+                                                    style={{background:'green'}}
+                                                >
+                                                    <FaCheck className="text-xl text-green-500"  />
+                                                </button>
+                                            )}
                                             <button
-                                                className="p-2 rounded-full hover:bg-red-50 transition-colors duration-200"
-                                                onClick={() => openModal(course.code)}
+                                                className="p-2 rounded-full bg-red-100 hover:bg-red-200 transition-colors duration-200"
+                                                onClick={() => handleDelete(course.code)}
+                                                style={{background:'red'}}
                                             >
                                                 <FaTrashAlt className="text-xl text-red-500" />
                                             </button>
@@ -180,50 +217,6 @@ const Table = () => {
                         </tbody>
                     </MUITable>
                 </TableContainer>
-
-                <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    contentLabel="Delete Confirmation"
-                    className="modal-content fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md"
-                    overlayClassName="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-                    style={{
-                        overlay: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.75)',
-                            backdropFilter: 'blur(5px)',
-                            zIndex: 1000
-                        },
-                        content: {
-                            position: 'relative',
-                            padding: 0,
-                            border: 'none',
-                            borderRadius: '1rem',
-                            background: 'transparent',
-                            overflow: 'visible'
-                        }
-                    }}
-                >
-                    <div className="bg-white p-8 rounded-xl shadow-2xl mx-4">
-                        <h2 className="text-2xl font-bold mb-6 text-gray-800">¿Estás seguro?</h2>
-                        <p className="text-gray-600 mb-8">
-                            ¿Deseas eliminar la postulación a <span className="font-semibold text-purple-600">{courseToDelete}</span>?
-                        </p>
-                        <div className="flex justify-end space-x-4">
-                            <button
-                                className="px-6 py-3 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors duration-200"
-                                onClick={closeModal}
-                            >
-                                Cancelar
-                            </button>
-                            <button
-                                className="px-6 py-3 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors duration-200"
-                                onClick={handleDelete}
-                            >
-                                Eliminar
-                            </button>
-                        </div>
-                    </div>
-                </Modal>
                 <ToastContainer 
                     position="bottom-right"
                     autoClose={3000}
